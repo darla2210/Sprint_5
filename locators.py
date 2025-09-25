@@ -4,13 +4,20 @@ from selenium.webdriver.common.by import By
 class TestLocators:
     # Локаторы полей ввода логина и пароля (подарок от наставника)
     EMAIL_LOCATOR = (By.XPATH, ".//*[text()='Email']/following-sibling::input")
+    email_input = (By.XPATH, '//label[text()="Email"]/following-sibling::input')
+
     PASSWORD_LOCATOR = (By.XPATH, ".//*[text()='Пароль']/following-sibling::input")
+    password_input = (By.XPATH, '//label[text()="Пароль"]/following-sibling::input')
+    
     # поле ввода имени в форме регистрации
     NAME_LOCATOR = (By.XPATH, ".//*[text()='Имя']/following-sibling::input")
+    name_input = (By.XPATH, '//label[text()="Имя"]/following-sibling::input')
+    
 
 
     # Кнопка "Войти в аккаунт" на главной странице и "Войти" в ЛК
     LOGIN_BUTTON_LOCATOR = (By.XPATH, '//*[contains(@class, "button_button_type_primary")]')
+    login_button = (By.XPATH, '//button[text()="Войти"]')
     1. #локатор кнопки "Войти в аккаунт"
     LOGIN_MAIN_PAGE_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
 
@@ -22,9 +29,12 @@ class TestLocators:
 
     # кнопка "Зарегистрироваться" в форме регистрации
     REGISTER_BUTTON_LOCATOR = (By.XPATH, '//*[contains(@class, "button_button_type_primary")]')
+    register_link = (By.XPATH, '//a[text()="Зарегистрироваться"]')
+    register_button = (By.XPATH, '//button[text()="Зарегистрироваться"]')
 
     # кнопка "Личный Кабинет"
     PERSONAL_ACCOUNT_BUTTON_LOCATOR = (By.XPATH, "//*[contains(text(), 'Личный Кабинет')]")
+    account_button = (By.XPATH, '//p[text()="Личный Кабинет"]')
 
     # кнопка "Конструктор"
     CONSTRUCTOR_BUTTON_LOCATOR = (By.XPATH, "//*[contains(text(), 'Конструктор')]")

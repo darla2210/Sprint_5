@@ -1,22 +1,30 @@
 import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pytest
 from locators import TestLocators
 
-@pytest.mark.parametrize("tab_button, active_tab", [
-    (TestLocators.CONSTRUCTOR_TAB_SAUCE_LOCATOR, TestLocators.ACTIVE_TAB_SAUCE_LOCATOR),
-    (TestLocators.CONSTRUCTOR_TAB_FILLING_LOCATOR, TestLocators.ACTIVE_TAB_FILLING_LOCATOR),
-    (TestLocators.CONSTRUCTOR_TAB_BUN_LOCATOR, TestLocators.ACTIVE_TAB_BUN_LOCATOR),
-])
-def test_constructor_tabs(driver, tab_button, active_tab):
-    wait = WebDriverWait(driver, 15)
-    driver.get("https://stellarburgers.nomoreparties.site/")
+class TestConstructorTabs:
 
-    # Если надо кликнуть на «Булки», сначала переключаемся на «Начинки» чтобы можно было потом переключиться на «Булки»
-    if tab_button == TestLocators.CONSTRUCTOR_TAB_BUN_LOCATOR:
+    def test_tab_sauce(driver):
+        wait = WebDriverWait(driver, 15)
+        driver.get("https://stellarburgers.nomoreparties.site/")
+        wait.until(EC.element_to_be_clickable(TestLocators.CONSTRUCTOR_TAB_SAUCE_LOCATOR)).click()
+        active_element = wait.until(EC.visibility_of_element_located(TestLocators.ACTIVE_TAB_SAUCE_LOCATOR))
+        assert active_element.is_displayed()
+
+    def test_tab_filling(driver):
+        wait = WebDriverWait(driver, 15)
+        driver.get("https://stellarburgers.nomoreparties.site/")
         wait.until(EC.element_to_be_clickable(TestLocators.CONSTRUCTOR_TAB_FILLING_LOCATOR)).click()
+        active_element = wait.until(EC.visibility_of_element_located(TestLocators.ACTIVE_TAB_FILLING_LOCATOR))
+        assert active_element.is_displayed()
 
-    wait.until(EC.element_to_be_clickable(tab_button)).click()
-
-    active_element = wait.until(EC.visibility_of_element_located(active_tab))
-    assert active_element.is_displayed()
+    def test_tab_bun(driver):
+        wait = WebDriverWait(driver, 15)
+        driver.get("https://stellarburgers.nomoreparties.site/")
+        # Для "Булок" сначала переключаемся на "Начинки"
+        wait.until(EC.element_to_be_clickable(TestLocators.CONSTRUCTOR_TAB_FILLING_LOCATOR)).click()
+        wait.until(EC.element_to_be_clickable(TestLocators.CONSTRUCTOR_TAB_BUN_LOCATOR)).click()
+        active_element = wait.until(EC.visibility_of_element_located(TestLocators.ACTIVE_TAB_BUN_LOCATOR))
+        assert active_element.is_displayed()
