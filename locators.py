@@ -23,6 +23,7 @@ class TestLocators:
 
     # кнопка войти после кнопки войти в акк
     LOGIN_BUTTON = (By.XPATH, '//button[text()="Войти"]')
+    login_button = (By.XPATH, '//button[text()="Войти"]')
 
     # ссылка "Войти" на страницах регистрации и восстановления пароля
     LOGIN_LINK_LOCATOR = (By.XPATH, '//*[contains(@class, "Auth_link")]')
@@ -41,6 +42,7 @@ class TestLocators:
 
     # кнопка "Выход" в ЛК
     LOGOUT_BUTTON_LOCATOR = (By.XPATH, "//*[contains(@class, 'Account_button')]")
+    logout_button = (By.XPATH, '//button[text()="Выход"]')
 
     # логотип Stellar Burgers в header
     LOGO_LOCATOR = (By.XPATH, "//*[contains(@class, 'AppHeader_header__logo')]")
@@ -62,3 +64,10 @@ class TestLocators:
 
     # локато "оформить заказ"
     PLACE_ORDER_BUTTON = (By.XPATH, '//button[text()="Оформить заказ"]')
+
+
+
+
+
+
+

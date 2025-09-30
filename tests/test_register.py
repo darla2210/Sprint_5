@@ -4,16 +4,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 import random
+from locators import TestLocators
+from utils import generate_email, generate_password
 
-
-# Функция генерации случайного email
-def generate_email():
-    names = ["ivan", "anna", "sergey", "olga"]
-    surnames = ["ivanov", "petrova", "sidorov", "smirnova"]
-    cohort = "1999"
-    random_digits = str(random.randint(100, 999))
-    domain = "@yandex.ru"
-    return f"{random.choice(names)}_{random.choice(surnames)}_{cohort}_{random_digits}{domain}"
 
 
 class TestRegister:
@@ -27,18 +20,18 @@ class TestRegister:
         wait = WebDriverWait(driver, 20)
 
         # Переход на страницу регистрации
-        wait.until(EC.element_to_be_clickable(register_link)).click()
+        wait.until(EC.element_to_be_clickable(TestLocators.register_link)).click()
 
         # Заполнение формы регистрации
-        wait.until(EC.visibility_of_element_located(name_input)).send_keys(username)
-        wait.until(EC.visibility_of_element_located(email_input)).send_keys(email)
-        wait.until(EC.visibility_of_element_located(password_input)).send_keys(password)
+        wait.until(EC.visibility_of_element_located(TestLocators.name_input)).send_keys(username)
+        wait.until(EC.visibility_of_element_located(TestLocators.email_input)).send_keys(email)
+        wait.until(EC.visibility_of_element_located(TestLocators.password_input)).send_keys(password)
 
         # Кнопка регистрации
-        wait.until(EC.element_to_be_clickable(register_button)).click()
+        wait.until(EC.element_to_be_clickable(TestLocators.register_button)).click()
 
         # Проверяем, что после успешной регистрации видна кнопка «Личный Кабинет»
-        assert wait.until(EC.visibility_of_element_located(account_button)).is_displayed()
+        assert wait.until(EC.visibility_of_element_located(TestLocators.account_button)).is_displayed()
 
 
     def test_registration_with_invalid_password(driver):
@@ -48,14 +41,14 @@ class TestRegister:
         wait = WebDriverWait(driver, 20)
 
         # Переход на страницу регистрации
-        wait.until(EC.element_to_be_clickable(register_link)).click()
+        wait.until(EC.element_to_be_clickable(TestLocators.register_link)).click()
 
         # Заполнение формы с некорректным паролем (например, слишком короткий)
-        wait.until(EC.visibility_of_element_located(name_input)).send_keys("testuser2")
-        wait.until(EC.visibility_of_element_located(email_input)).send_keys(email)
-        wait.until(EC.visibility_of_element_located(password_input)).send_keys("123")  # короткий пароль
+        wait.until(EC.visibility_of_element_located(TestLocators.name_input)).send_keys("testuser2")
+        wait.until(EC.visibility_of_element_located(TestLocators.email_input)).send_keys(email)
+        wait.until(EC.visibility_of_element_located(TestLocators.password_input)).send_keys("123")  # короткий пароль
 
-        wait.until(EC.element_to_be_clickable(register_button)).click()
+        wait.until(EC.element_to_be_clickable(TestLocators.register_button)).click()
 
     # Проверяем, что есть сообщение об ошибке, содержащее слово «пароль»
         error = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[contains(text(), "пароль")]')))
